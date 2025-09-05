@@ -28,7 +28,7 @@ winget install ngrok.ngrok
 ### macOS
 #### Option A — Using Homebrew
 ```bash
-brew install ngrok/ngrok/ngrok
+brew install ngrok
 ```
 
 #### Option B — Manual Download
