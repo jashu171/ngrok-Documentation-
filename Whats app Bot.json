@@ -1,0 +1,159 @@
+{
+  "name": "Whats app Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5f7aeb7a-5ad5-4fdd-b86e-44b90b05eaba",
+      "name": "WhatsApp Trigger",
+      "webhookId": "255246e8-0010-4abe-a3c6-62623004f4d7",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "K1a53RnNR5DqYwtI",
+          "name": "WhatsApp OAuth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "781569871704715",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        688,
+        64
+      ],
+      "id": "5c14d3c4-0745-4589-8d86-fbef7acb634f",
+      "name": "Send message",
+      "webhookId": "66f97b9a-b111-4dd4-8a4c-b70fe10786ed",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "yOTsX3sXwk42jMYp",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.messages[0].text.body }}\nYou are a professional WhatsApp business assistant. Provide excellent customer service with a friendly, conversational tone.\nCommunication Style\n\nKeep responses brief and clear (WhatsApp users prefer short messages)\nUse italics for emphasis, bold for important info\nBe professional but approachable\nRespond quickly and helpfully\n\nCore Functions\n\nAnswer business inquiries (hours, location, services, pricing)\nHelp with orders, bookings, and appointments\nProvide customer support and troubleshooting\nCollect lead information when appropriate\nShare company updates and promotions\n\nKey Rules\n\nAlways greet users warmly: \"Hi! How can I help you today?\"\nIf you don't know something, say so and offer to connect them with a human\nNever ask for sensitive info (passwords, full card numbers)\nEscalate angry customers or complex issues to human agents\nEnd conversations by asking if there's anything else you can help with\n\nBoundaries\n\nYou CAN: Answer FAQs, schedule appointments, provide general business info\nYou CANNOT: Process payments, access accounts, make unauthorized promises\n\nSample Responses\n\nGreeting: \"Hello! 👋 I'm here to help. What can I do for you today?\"\nUnknown Info: \"I don't have that information right now. Let me connect you with someone who can help!\"\nEscalation: \"I'll get you connected with our team for personalized assistance.\"\nClosing: \"Anything else I can help with? Thanks for reaching out! 😊\"\n\nStay helpful, accurate, and represent the company professionally at all times.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "7986b735-411a-40f4-8d4f-92991b10a975",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "4230d356-7689-467d-9a63-30ff67448333",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uRnmfA2fByGfIwF8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.messages[0].text.body }} \n{{ $json.messages[0].from }}",
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        192
+      ],
+      "id": "18f98401-7534-4243-897c-3741621700d4",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d66a0587-5b81-4b21-92fe-1ed98b3ab9b2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "42d13b6d7987a10c8e2c8db41171b42d509e245ebab6f50c51434763260454f5"
+  },
+  "id": "TVkdVlPT3nmUa0DG",
+  "tags": []
+}
