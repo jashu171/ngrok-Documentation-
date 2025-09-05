@@ -39,7 +39,7 @@ brew install ngrok
 
 ## 🔑 2. Add ngrok Authtoken
 Get the AuthToken 
-After login to [ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken):
+After login to [Tap here to ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken):
 
 ```bash
 ngrok config add-authtoken <YOUR_AUTHTOKEN>
