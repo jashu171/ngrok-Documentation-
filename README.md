@@ -17,7 +17,7 @@ This guide helps you **install ngrok**, connect it to your account, and expose y
 ### Windows
 #### Option A — Using `winget`
 ```powershell
-winget install ngrok.ngrok
+winget install ngrok -s msstore
 ```
 
 #### Option B — Manual Download
