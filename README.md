@@ -1,18 +1,18 @@
 
-# 🚀 Ngrok + n8n Setup Guide (Windows & macOS)
+#  Ngrok + n8n Setup Guide (Windows & macOS)
 
 This guide helps you **install ngrok**, connect it to your account, and expose your **local n8n instance (`localhost:5678`)** to the internet.
 
 ---
 
-## 📋 Prerequisites
+##  Prerequisites
 - Installed **n8n** (via npm or desktop).
 - Basic command-line knowledge (PowerShell on Windows, Terminal on macOS).
 - [ngrok account](https://dashboard.ngrok.com/signup) (free plan works).
 
 ---
 
-## 🔧 1. Install ngrok
+##  1. Install ngrok
 
 ### Windows
 #### Option A — Using `winget`
@@ -38,7 +38,7 @@ brew install ngrok
 
 ---
 
-## 🔑 2. Add ngrok Authtoken
+##  2. Add ngrok Authtoken
 Get the AuthToken 
 After login to [Tap here to ngrok dashboard](https://dashboard.ngrok.com/get-started/your-authtoken):
 
@@ -48,7 +48,7 @@ ngrok config add-authtoken <YOUR_AUTHTOKEN>
 
 ---
 
-## ▶️ 3. Start n8n
+##  3. Start n8n
 
 If installed via npm:
 ```bash
@@ -59,7 +59,7 @@ Your n8n instance runs at `http://localhost:5678`.
 
 ---
 
-## 🌍 4. Expose n8n with ngrok
+##  4. Expose n8n with ngrok
 Run:
 ```bash
 ngrok http 5678
@@ -72,7 +72,7 @@ https://abcd-1234.ngrok.io → http://localhost:5678
 
 ---
 
-## ⚙️ 5. Configure n8n Webhook URL
+##  5. Configure n8n Webhook URL
 
 You must set n8n’s `WEBHOOK_URL` to the ngrok URL.
 
@@ -96,7 +96,7 @@ n8n start
 
 ---
 
-## ✅ 6. Test with a Webhook Node
+##  6. Test with a Webhook Node
 1. Open `http://localhost:5678`  
 2. Create a workflow → add **Webhook Node**.  
 3. Copy the **production URL** (with ngrok domain).  
@@ -104,14 +104,14 @@ n8n start
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 - **Tunnel not starting?** Check if port `5678` is free.  
 - **Webhook not firing?** Ensure you’re using the **ngrok URL** in external services.  
 - **Persistent URL?** Use [ngrok reserved domains](https://ngrok.com/docs/secure-tunnels/domains).  
 
 ---
 
-## ✅ Quick Checklist
+##  Quick Checklist
 - [ ] Install ngrok  
 - [ ] Add authtoken  
 - [ ] Start n8n (`localhost:5678`)  
